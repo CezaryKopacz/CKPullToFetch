@@ -8,18 +8,18 @@
 
 import UIKit
 
-protocol CKPullToLoadDelegate: class {
+public protocol CKPullToLoadDelegate: class {
     /// sends the trigger when the view is in the pull state
     func ckPullToLoadPullContent()
 }
 
 /// footer view state
-enum FooterState {
+public enum FooterState {
     case pull
     case release
 }
 
-protocol CKPullToLoadFooter {
+public protocol CKPullToLoadFooter {
     func setHeight(_ height: CGFloat)
     var pullText: String { get }
     var releaseText: String { get }
@@ -27,9 +27,9 @@ protocol CKPullToLoadFooter {
 }
 
 /// implement this protocol to create custom footer
-protocol CKPullToLoadFooterBase: CKPullToLoadFooter { }
+public protocol CKPullToLoadFooterBase: CKPullToLoadFooter { }
 
-extension CKPullToLoadFooterBase where Self: UIView {
+public extension CKPullToLoadFooterBase where Self: UIView {
     /// default text when the view is in the .pull state, override if needed
     var pullText: String { return "PULL TO FETCH" }
     /// default text when the view is in the .fetch state, override if needed
@@ -40,7 +40,7 @@ extension CKPullToLoadFooterBase where Self: UIView {
     }
 }
 
-class CKPullToLoad: NSObject {
+public class CKPullToLoad: NSObject {
     private let tableView: UITableView
     weak var delegate: CKPullToLoadDelegate?
   
@@ -53,7 +53,7 @@ class CKPullToLoad: NSObject {
         return view
     }()
     
-    init(tableView: UITableView, footerView: (CKPullToLoadFooterBase & UIView)?, delegate: CKPullToLoadDelegate?) {
+    public init(tableView: UITableView, footerView: (CKPullToLoadFooterBase & UIView)?, delegate: CKPullToLoadDelegate?) {
         self.tableView = tableView
         super.init()
         self.delegate = delegate
@@ -71,7 +71,7 @@ class CKPullToLoad: NSObject {
         self.tableView.addObserver(self, forKeyPath: self.contentOffsetKey, options: .new, context: nil)
     }
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if let obj = object as? UITableView,
             obj == self.tableView && keyPath == self.contentOffsetKey {
             let offset = self.tableView.contentSize.height - self.tableView.contentOffset.y - self.tableView.frame.height

@@ -10,6 +10,6 @@ import UIKit
 
 extension UIView {
     class func fromNib<T: UIView>() -> T {
-        return Bundle.main.loadNibNamed(String(describing: T.self), owner: self, options: nil)![0] as! T
+        return Bundle(for: CKPullToLoad.classForCoder()).loadNibNamed(String(describing: T.self), owner: self, options: nil)![0] as! T
     }
 }

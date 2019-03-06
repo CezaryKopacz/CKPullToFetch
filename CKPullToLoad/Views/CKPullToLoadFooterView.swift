@@ -8,12 +8,12 @@
 
 import UIKit
 
-class CKPullToLoadFooterView: UIView, CKPullToLoadFooterBase {
+public class CKPullToLoadFooterView: UIView, CKPullToLoadFooterBase {
     @IBOutlet weak var msgLabel: UILabel!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     @IBOutlet weak var arrowImageView: UIImageView!
     
-    var state: FooterState = .pull {
+    public var state: FooterState = .pull {
         didSet {
             self.animateArrow()
             switch self.state {
@@ -25,7 +25,7 @@ class CKPullToLoadFooterView: UIView, CKPullToLoadFooterBase {
         }
     }
 
-    func setText(_ text: String) {
+    public func setText(_ text: String) {
         UIView.beginAnimations(nil, context: nil)
         UIView.transition(with: msgLabel,
                           duration: 0.5,
@@ -37,7 +37,7 @@ class CKPullToLoadFooterView: UIView, CKPullToLoadFooterBase {
         UIView.commitAnimations()
     }
 
-    func setHeight(_ height: CGFloat) {
+    public func setHeight(_ height: CGFloat) {
         self.heightConstraint.constant = height
         self.animateFontSize()
     }
